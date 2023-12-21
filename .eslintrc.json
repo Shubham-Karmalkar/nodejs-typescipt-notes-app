@@ -13,5 +13,9 @@
         "sourceType": "module"
     },
     "rules": {
+        "no-throw-literal": "error",
+        "no-unused-vars":"off",
+        "@typescript-eslint/no-unused-vars":"off",
+        "@typescript-eslint/no-explicit-any":"off"
     }
 }
