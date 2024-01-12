@@ -1,10 +1,17 @@
 {
     "env": {
-        "browser": true,
+        "node": true,
         "es2021": true
     },
+    "plugins": [
+        "@typescript-eslint",
+        "promise",
+        "security"
+    ],
     "extends": [
-        "plugin:@typescript-eslint/recommended" // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+        "plugin:@typescript-eslint/recommended", // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+        "eslint:recommended",
+        "plugin:security/recommended-legacy"
     ],
     //"extends": "standard-with-typescript",
     "parser": "@typescript-eslint/parser",
@@ -16,6 +23,7 @@
         "no-throw-literal": "error",
         "no-unused-vars":"off",
         "@typescript-eslint/no-unused-vars":"off",
-        "@typescript-eslint/no-explicit-any":"off"
+        "@typescript-eslint/no-explicit-any":"off",
+        "security/detect-non-literal-fs-filename": "off"
     }
 }

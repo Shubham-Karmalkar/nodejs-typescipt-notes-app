@@ -1,0 +1,8 @@
+{
+    "watch": ["."],
+    "watchIgnore": ["build"],
+    "ext": "ts,json",
+    "ignore": ["build"],
+    "exec": "tsc && node build/src/main.js"
+  }
+  
