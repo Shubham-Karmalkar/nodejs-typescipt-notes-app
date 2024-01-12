@@ -1,12 +1,17 @@
 import express, { Response, Request } from "express";
 import { VoidFunc } from "./types";
+import "module-alias/register";
 import { Exception, postRouteMiddleware, preRouteMiddleware, errorHandler } from "./core";
 import * as server from "./server";
-import { router } from "./apps/user/user.routes";
 
 const app = express();
+//https://app.diagrams.net/#G1dEnqsf_RLpMTK0npPdRYcqaPZyruf1wi
 
-app.use("/user", router);
+app.use(express.json());
+app.get("/", (req: Request, res: Response) => {
+  console.log(req.path);
+  res.send("Welcome to notes-app");
+});
 
 //fallback error handler
 postRouteMiddleware.add(async (error: Error, req: Request, res: Response, next: VoidFunc) => {
