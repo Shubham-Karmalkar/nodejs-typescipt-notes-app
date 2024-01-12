@@ -36,8 +36,8 @@ export async function configureRoutes(dirPath: string | string[], app: Express) 
     const routePath = "../" + route.split("/").slice(1).join("/").split(".").slice(0, -1).join(".");
     const router = await import(routePath);
     let apiPath = route.split("/").slice(2, -1).join("/");
-    apiPath = "/" + apiPath;
-    app.use(apiPath, router.router);
+    apiPath = "/api/v1/" + apiPath;
+    app.use(apiPath, router.default);
   }
   console.log("Routes are loaded");
 }
