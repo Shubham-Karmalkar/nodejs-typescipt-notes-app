@@ -6,3 +6,4 @@
     "exec": "tsc && node build/src/main.js"
   }
   
+  
