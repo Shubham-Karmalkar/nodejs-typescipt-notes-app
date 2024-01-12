@@ -1,15 +1,23 @@
+import { Database } from "@root/db";
 import { Exception } from "../../core";
 import { User } from "./user.module";
+import crypto from 'node:crypto';
+import { Request } from "express";
 
 class UserController {
-  async getUser(): Promise<string> {
-    throw new Exception("something manual exception thrown")
-    return "<h1>Hello you have logged in </h1>";
+  db: Database;
+  constructor() {
+    this.db = new Database("users");
+  }
+  getUser = async (req: Request): Promise<any> => {
+    const data = await this.db.get(req.body.email);
+    return data;
   }
 
-  async createUser() {
+  createUser = async () => {
     
   }
 }
+const userController = new UserController();
 
-export default new UserController();
+export default userController;
