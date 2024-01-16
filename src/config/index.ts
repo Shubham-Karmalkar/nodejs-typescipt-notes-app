@@ -1,8 +1,8 @@
-import { HttpStatus } from "../src/constants";
-import { Exception } from "../src/core/errors/apiErrors";
+import { HttpStatus } from "../constants";
+import { Exception } from "../core/errors/apiErrors";
 import fs from "fs";
 import path from "path";
-import { GenericObj } from "../src/types";
+import { GenericObj } from "../types";
 
 export function getConfig(configPath?: string) {
   const ENV = process.env.NODE_ENV;
@@ -23,12 +23,12 @@ export function getConfig(configPath?: string) {
   if (!configPath) {
     return config;
   }
-  
+
   //path traversal as per requirement
   for (const property of configPath.split(".")) {
     config = config[property];
   }
-  
+
   return config;
 }
 
