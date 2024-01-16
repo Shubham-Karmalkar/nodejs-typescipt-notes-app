@@ -1,25 +1,27 @@
 import winston, { format } from "winston";
-const { combine, timestamp, json } = format;
+const { combine, timestamp, json, errors } = format;
 
 export const logger = winston.createLogger({
   level: process.env.NODE_ENV !== "prod" ? "debug" : "info",
-  format: combine(timestamp(), json()),
+  format: combine(timestamp(), json(), errors({ stack: true })),
   defaultMeta: { service: "notes-service" },
-  transports: [new winston.transports.Console()],
+  transports: [
+    new winston.transports.Console(),
+  ],
 });
 
 console.log = function (...args) {
-  logger.info(JSON.stringify(args));
+  logger.info(...args);
 };
 console.info = function (...args) {
-  logger.info(JSON.stringify(args));
+  logger.info(...args);
 };
 console.error = function (...args) {
-  logger.error(JSON.stringify(args));
+  logger.error(...args);
 };
 console.debug = function (...args) {
-  logger.debug(JSON.stringify(args));
+  logger.debug(...args);
 };
 console.warn = function (...args) {
-  logger.warn(JSON.stringify(args));
+  logger.warn(...args);
 };

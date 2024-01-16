@@ -4,6 +4,7 @@ import "module-alias/register";
 import { logRequestResponse } from "@lib/log/log.middleware";
 import { Exception, postRouteMiddleware, preRouteMiddleware, errorHandler } from "./core";
 import * as server from "./server";
+import "@lib/log";
 
 const app = express();
 //https://app.diagrams.net/#G1tvL5CnkRjU4rHQpCH6hPuNPDN2mQ9n9r
@@ -11,9 +12,7 @@ const app = express();
 preRouteMiddleware.add(express.json());
 
 preRouteMiddleware.add(logRequestResponse);
-
 app.get("/", (req: Request, res: Response) => {
-  console.log(req.path);
   res.send("Welcome to notes-app");
 });
 
