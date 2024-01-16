@@ -1,4 +1,4 @@
-import { firestore } from "@root/../config/firebase";
+import { firestore } from "@root/config/firebase";
 
 export class FireStoreDb {
   constructor(public tableName: string) {
