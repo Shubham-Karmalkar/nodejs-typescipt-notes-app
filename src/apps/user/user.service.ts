@@ -9,7 +9,7 @@ export class UserService {
   }
 
   async getUserByEmail(email?: string) {
-    if(!email) throw new Exception("Can not get user with empty Email id");
+    if (!email) throw new Exception("Can not get user with empty Email id");
     return this.userModule.getUserByEmail(email);
   }
 }

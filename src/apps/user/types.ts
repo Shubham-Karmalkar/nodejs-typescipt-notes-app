@@ -24,4 +24,3 @@ export type AdminUser = IUser & {
 };
 
 export type User = BaseUser | ProUser | AdminUser;
-

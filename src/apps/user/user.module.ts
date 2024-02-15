@@ -11,5 +11,4 @@ export class UserModule {
     console.log("user: ", user);
     return user as User;
   }
-
 }
