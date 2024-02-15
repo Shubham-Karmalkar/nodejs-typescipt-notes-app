@@ -10,7 +10,7 @@ export class Exception extends Error {
   constructor(message: string, status?: ValuesOf<typeof HttpStatus>) {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);
-    this.statusCode = status || 200;
+    this.statusCode = status || HttpStatus.BAD_REQUEST;
     this.message = message;
   }
 }

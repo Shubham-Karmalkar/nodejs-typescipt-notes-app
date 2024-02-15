@@ -5,7 +5,7 @@ type ErrorTypes = "appError" | "unhandledRejection" | "uncaughtException" | "unK
 
 class ErrorHandler {
   public async handleError(error: Error, type: ErrorTypes, res?: Response): Promise<void> {
-    console.error("inside handleError: ", error);
+    console.error("inside handleError: ", error, type);
     /**
      * await logger.logError(err);
     await sendMailToAdminIfCritical();
@@ -14,7 +14,7 @@ class ErrorHandler {
      */
   }
 
-  public isTrustedError(error: Error) {
+  public isTrustedError(error: Error): error is Exception {
     if (error instanceof Exception) {
       return error.isOperational;
     }

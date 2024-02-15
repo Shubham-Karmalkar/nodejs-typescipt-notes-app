@@ -1,16 +1,15 @@
 import { Database } from "@root/db";
 import { Exception } from "../../core";
-import { User } from "./user.module";
-import crypto from "node:crypto";
 import { Request } from "express";
+import { UserService } from "./user.service";
 
 class UserController {
-  db: Database;
+  private userService: UserService;
   constructor() {
-    this.db = new Database("users");
+    this.userService = new UserService();
   }
   getUser = async (req: Request): Promise<any> => {
-    const data = await this.db.get(req.body.email);
+    const data = await this.userService.getUserByEmail(req.body.email);
     return data;
   };
 

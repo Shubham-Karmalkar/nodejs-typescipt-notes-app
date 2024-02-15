@@ -19,7 +19,7 @@ app.get("/", (req: Request, res: Response) => {
 //fallback error handler
 postRouteMiddleware.add(async (error: Error, req: Request, res: Response, next: VoidFunc) => {
   if (errorHandler.isTrustedError(error)) {
-    return res.json(error);
+    return res.status(error.statusCode).json(error);
   }
   errorHandler.handleError(error, "unKnown", res);
 });
