@@ -1,9 +1,9 @@
 import { Express } from "express";
-import { Func } from "../../types";
 
+type Func = (...args: any[]) => void;
 class RouteMiddleware {
-  private readonly preRouteMiddleware: Func<any>[] = [];
-  add(func: Func<any>) {
+  private readonly preRouteMiddleware: Func[] = [];
+  add(func: Func) {
     this.preRouteMiddleware.push(func);
   }
   use(app: Express) {

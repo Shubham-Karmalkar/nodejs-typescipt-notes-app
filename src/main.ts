@@ -1,6 +1,6 @@
 import express, { Response, Request } from "express";
 import { VoidFunc } from "./types";
-import "module-alias/register";
+import "module-alias/register"; //compiles module alias at time of tsc compilation
 import { logRequestResponse } from "@lib/log/log.middleware";
 import { Exception, postRouteMiddleware, preRouteMiddleware, errorHandler } from "./core";
 import * as server from "./server";
