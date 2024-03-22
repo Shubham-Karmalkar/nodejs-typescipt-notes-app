@@ -16,6 +16,7 @@ export enum HttpStatus {
   UNAUTHORIZED = 401,
   FORBIDDEN = 403,
   NOT_FOUND = 404,
+  CONFLICT = 409,
   TOO_MANY_REQUESTS = 429,
 
   //SERVER Error Response 500 series
@@ -23,4 +24,11 @@ export enum HttpStatus {
   BAD_GATEWAY = 502,
   SERVICE_UNAVAILABLE = 503,
   GATEWAY_TIMEOUT = 504,
+}
+
+export enum HttpMethods {
+  GET = "get",
+  POST = "post",
+  PUT = "put",
+  DELETE = "delete",
 }
