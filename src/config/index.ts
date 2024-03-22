@@ -1,35 +1,28 @@
-import { HttpStatus } from "../constants";
-import { Exception } from "../core/errors/apiErrors";
-import fs from "fs";
+process.env["NODE_CONFIG_DIR"] = __dirname;
+import cfg from "config";
 import path from "path";
-import { GenericObj } from "../types";
+import fs from "fs";
 
-export function getConfig(configPath?: string) {
-  const ENV = process.env.NODE_ENV;
-  if (!ENV) throw new Exception("NODE_ENV is not set", HttpStatus.INTERNAL_SERVER_ERROR);
+const CONFIG_PATH = "./";
 
-  const configFilePath = path.join(__dirname, ENV + ".json");
-
-  let config = JSON.parse(fs.readFileSync(configFilePath, "utf-8"));
-
-  //resolving relative paths to absolute
-  const paths: GenericObj<string> = config.paths;
-  const newPaths: GenericObj<string> = {};
-  for (const pathKey in paths) {
-    newPaths[pathKey] = path.resolve(paths[pathKey]);
-  }
-  config.paths = newPaths;
-
-  if (!configPath) {
-    return config;
+class Config {
+  constructor() {
+    this.init();
   }
 
-  //path traversal as per requirement
-  for (const property of configPath.split(".")) {
-    config = config[property];
+  private init() {
+    const configFolderPath = CONFIG_PATH;
+    const configFilePath = path.join(__dirname, configFolderPath, `${process.env.NODE_ENV}.json`);
+    fs.readFileSync(configFilePath);
   }
 
-  return config;
+  public get<Type = any>(prop: string): Type {
+    return cfg.get(prop);
+  }
+
+  public has(prop: string): boolean {
+    return cfg.has(prop);
+  }
 }
 
-export const config = getConfig();
+export default new Config();
