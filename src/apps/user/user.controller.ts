@@ -1,20 +1,25 @@
 import { Database } from "@root/db";
-import { Exception } from "../../core";
+import { Binder, Controller, Exception } from "@root/core";
 import { Request } from "express";
 import { UserService } from "./user.service";
 
+@Binder
 class UserController {
   private userService: UserService;
+
   constructor() {
     this.userService = new UserService();
   }
-  getUser = async (req: Request): Promise<any> => {
+
+  @Controller
+  async getUser(req: Request): Promise<any> {
     const data = await this.userService.getUserByEmail(req.body.email);
     return data;
-  };
+  }
 
-  createUser = async () => {};
+  async createUser() {}
 }
+
 const userController = new UserController();
 
 export default userController;
