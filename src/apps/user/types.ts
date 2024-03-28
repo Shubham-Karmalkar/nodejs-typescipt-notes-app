@@ -1,3 +1,5 @@
+import { ReqData } from "@root/types";
+
 export type Providers = "Google" | "EmailPassword";
 export interface IUser {
   _id: string;
@@ -24,3 +26,10 @@ export type AdminUser = IUser & {
 };
 
 export type User = BaseUser | ProUser | AdminUser;
+
+export namespace UserGetApi {
+  export type Params = {
+    userId: string;
+  };
+  export type Request = ReqData<never, Params>;
+}

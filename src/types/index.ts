@@ -16,3 +16,12 @@ export type GenericObj<Type = any> = {
 export type HasPropOf<Type extends GenericObj> = {
   [Property in keyof Type]: any;
 };
+
+export type ReqData<Body = GenericObj, Params = GenericObj, Query = GenericObj, Headers = GenericObj> = {
+  body: Body;
+  params: Params;
+  query: Query;
+  headers: Headers;
+  //eslint-disable-next-line no-undef
+  // files?: Express.Multer.File[];
+};

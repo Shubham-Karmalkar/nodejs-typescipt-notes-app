@@ -1,7 +1,8 @@
 import { Database } from "@root/db";
-import { Binder, Controller, Exception } from "@root/core";
+import { Binder, Controller, Exception, Validator } from "@root/core";
 import { Request } from "express";
 import { UserService } from "./user.service";
+import { userGetApiValidation } from "./schema";
 
 @Binder
 class UserController {
@@ -12,6 +13,7 @@ class UserController {
   }
 
   @Controller
+  @Validator(userGetApiValidation)
   async getUser(req: Request): Promise<any> {
     const data = await this.userService.getUserByEmail(req.body.email);
     return data;
