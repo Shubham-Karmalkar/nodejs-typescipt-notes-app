@@ -5,6 +5,7 @@ import { logRequestResponse } from "@lib/log/log.middleware";
 import { Exception, postRouteMiddleware, preRouteMiddleware, errorHandler } from "./core";
 import * as server from "./server";
 import "@lib/log";
+import { HttpStatus } from "./constants";
 
 const app = express();
 //https://app.diagrams.net/#G1tvL5CnkRjU4rHQpCH6hPuNPDN2mQ9n9r
@@ -14,6 +15,11 @@ preRouteMiddleware.add(express.json());
 preRouteMiddleware.add(logRequestResponse);
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to notes-app");
+});
+
+//should always be 1st postRouteMiddleWare
+postRouteMiddleware.add((req: Request, res: Response) => {
+  throw new Exception("Route not Found", HttpStatus.NOT_FOUND);
 });
 
 //fallback error handler
