@@ -29,7 +29,7 @@ export type User = BaseUser | ProUser | AdminUser;
 
 export namespace UserGetApi {
   export type Params = {
-    userId: string;
+    emailId: string;
   };
   export type Request = ReqData<never, Params>;
 }
