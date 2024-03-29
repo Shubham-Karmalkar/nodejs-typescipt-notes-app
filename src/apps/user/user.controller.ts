@@ -1,6 +1,4 @@
-import { Database } from "@root/db";
 import { Binder, Controller, Exception, Validator } from "@root/core";
-import { Request } from "express";
 import { UserService } from "./user.service";
 import { userGetApiValidation } from "./schema";
 import { User, UserGetApi } from "./types";
