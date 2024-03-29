@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc && nodemon",
+    "dev": "nodemon",
     "start": "tsc && node build/src/main.js",
     "lint": "eslint src/**/*.{ts,json,tsx}",
     "format": "prettier src/**/*.{ts,json,tsx} --write --config ./.prettierrc",
