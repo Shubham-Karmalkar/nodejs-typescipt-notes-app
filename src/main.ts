@@ -25,7 +25,7 @@ postRouteMiddleware.add((req: Request, res: Response) => {
 //fallback error handler
 postRouteMiddleware.add(async (error: Error, req: Request, res: Response, next: VoidFunc) => {
   if (errorHandler.isTrustedError(error)) {
-    return res.status(error.statusCode).json(error);
+    return errorHandler.handleError(error, "appError", res);
   }
   errorHandler.handleError(error, "unKnown", res);
 });
