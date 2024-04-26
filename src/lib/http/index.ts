@@ -1,5 +1,5 @@
-import { HttpMethods, HttpStatus } from "@root/constants";
-import { GetOptions, Http, HttpOptions, UrlOptions } from "@root/interfaces/http.interface";
+import { HttpMethods, HttpStatus } from "@constants";
+import { GetOptions, Http, HttpOptions, UrlOptions } from "@interfaces/http.interface";
 import { formatString } from "@root/utils";
 import rawAxios, { AxiosResponse, AxiosStatic } from "axios";
 import FormData from "form-data";

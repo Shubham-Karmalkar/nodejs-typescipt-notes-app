@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { Exception, stackFilter } from "./errors";
-import { HttpStatus } from "@root/constants";
+import { HttpStatus } from "@constants";
 import { NextFunction, Request, Response } from "express";
 import { Func } from "../types";
 import { ApiResponse } from "./apiResponse";

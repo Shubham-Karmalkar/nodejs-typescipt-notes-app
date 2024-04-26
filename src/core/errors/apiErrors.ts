@@ -1,5 +1,5 @@
-import { HttpStatus } from "../../constants";
-import { KeysOf, ValuesOf } from "../../types";
+import { HttpStatus } from "@constants";
+import { KeysOf, ValuesOf } from "@root/types";
 
 export class Exception extends Error {
     public readonly statusCode: ValuesOf<typeof HttpStatus>;

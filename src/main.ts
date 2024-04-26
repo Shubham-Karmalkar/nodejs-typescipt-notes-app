@@ -1,6 +1,6 @@
 import express, { Response, Request, NextFunction } from "express";
 import { logRequestResponse } from "@lib/log";
-import { errorHandler } from "./core";
+import { errorHandler } from "@core";
 import dotenv from "dotenv";
 import routes from "./routes";
 

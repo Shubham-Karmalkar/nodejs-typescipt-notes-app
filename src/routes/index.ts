@@ -1,5 +1,5 @@
-import { HttpStatus } from "@root/constants";
-import { Exception, errorHandler } from "@root/core";
+import { HttpStatus } from "@constants";
+import { Exception, errorHandler } from "@core";
 import type { NextFunction, Request, Response, Router } from "express";
 import { userRoute } from "./user.routes";
 require("express-group-routes");

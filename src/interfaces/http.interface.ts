@@ -1,4 +1,4 @@
-import { HttpMethods } from "@root/constants";
+import { HttpMethods } from "@constants";
 import FormData from "form-data";
 
 export type HttpOptions = {

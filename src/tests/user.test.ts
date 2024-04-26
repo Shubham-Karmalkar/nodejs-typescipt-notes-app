@@ -1,6 +1,6 @@
 // import { describe, expect, test, it, jest } from "@jest/globals";
 // import { Request, Response } from "express";
-// import { UserController } from "@root/controller/user.controller";
+// import { UserController } from "@controller/user.controller";
 
 // describe("UserController", () => {
 //     const userController = new UserController();

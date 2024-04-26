@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { Exception } from "./apiErrors";
-import { HttpStatus } from "@root/constants";
+import { HttpStatus } from "@constants";
 import { HasPropOf } from "@root/types";
 
 type ErrorTypes = "appError" | "unhandledRejection" | "uncaughtException" | "unKnown";
