@@ -1,14 +1,8 @@
-import winston from "winston";
-import { logger } from "@lib/log";
-
+import { Request } from "express";
 declare global {
-  var logger: winston.Logger;
-
-  namespace Express {
-    export interface Request {
-      start: number;
+    namespace Express {
+        export interface Request {
+            start: number;
+        }
     }
-  }
 }
-
-export {};

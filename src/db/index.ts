@@ -1,24 +1,29 @@
 import { FireStoreDb } from "./firestore";
 
 export class Database {
-  db: FireStoreDb;
-  constructor(tableName: string) {
-    this.db = new FireStoreDb(tableName);
-  }
+    private db: FireStoreDb;
 
-  async get(id: any) {
-    return await this.db.getDoc(id);
-  }
+    constructor(tableName: string) {
+        this.db = new FireStoreDb(tableName);
+    }
 
-  async update(id: any, data: any) {
-    return await this.db.updateDoc(id, data);
-  }
+    async get(id: any) {
+        return await this.db.getDoc(id);
+    }
 
-  async create(data: any) {
-    return await this.db.createDoc(data);
-  }
+    async update(id: any, data: any) {
+        return await this.db.updateDoc(id, data);
+    }
 
-  async delete(id: any) {
-    return await this.db.deleteDoc(id);
-  }
+    async create(data: any) {
+        return await this.db.createDoc(data);
+    }
+
+    async delete(id: any) {
+        return await this.db.deleteDoc(id);
+    }
+
+    async setTable(tableName: string) {
+        return new FireStoreDb(tableName);
+    }
 }
