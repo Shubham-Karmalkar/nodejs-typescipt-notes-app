@@ -5,6 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "test": "jest",
+    "postinstall": "npx husky install",
     "dev": "nodemon",
     "start": "node build/main.js",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
