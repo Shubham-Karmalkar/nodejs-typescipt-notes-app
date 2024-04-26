@@ -1,42 +1,20 @@
 import { HttpMethods, HttpStatus } from "@root/constants";
-import { GenericObj } from "@root/types";
+import { GetOptions, Http, HttpOptions, UrlOptions } from "@root/interfaces/http.interface";
 import { formatString } from "@root/utils";
-import rawAxios, { AxiosResponse, HttpStatusCode } from "axios";
+import rawAxios, { AxiosResponse, AxiosStatic } from "axios";
+import FormData from "form-data";
 
-export type HttpOptions = {
-    method: HttpMethods;
-    url: string;
-    headers: GenericObj;
-    validateStatus: any;
-    params?: GenericObj;
-    data?: any;
-    responseType?: "arraybuffer" | "document" | "json" | "text" | "stream";
-};
-
-type UrlOptions = {
-    protocol: string;
-    hostname: string;
-    port?: number;
-    endpoint?: string;
-    prefix?: string;
-    path?: string;
-};
-
-export type ModuleConfig = UrlOptions & {
-    paths: Record<string, { method: HttpMethods; path: string }>;
-} & GenericObj;
-
-export class HttpConnector {
-    private axios: any;
+export class HttpConnector implements Http {
+    private axios: AxiosStatic;
     constructor() {
         this.axios = rawAxios;
     }
 
-    public getCore() {
+    public getCore(): AxiosStatic {
         return this.axios;
     }
 
-    public validateStatus(status: HttpStatusCode) {
+    public validateStatus(status: HttpStatus) {
         return true;
     }
 
@@ -46,7 +24,6 @@ export class HttpConnector {
             headers: {
                 "Content-Type": "application/json",
             },
-            validateStatus: this.validateStatus,
         };
         if (data) options.data = data;
         return options;
@@ -59,7 +36,6 @@ export class HttpConnector {
             headers: headers || {
                 "Content-Type": "application/json",
             },
-            validateStatus: this.validateStatus,
         };
         if (data) options.data = data;
         if (responseType) options.responseType = responseType;
@@ -78,31 +54,52 @@ export class HttpConnector {
         return url;
     }
 
+    public createForm(): FormData {
+        return new FormData();
+    }
+
+    @error_handler
     public async get<Type>(options: Omit<HttpOptions, "method"> | string) {
         const updatedOptions = typeof options == "string" ? { url: options } : options;
 
         return (await this.axios({
             ...updatedOptions,
             method: HttpMethods.GET,
+            validateStatus: this.validateStatus,
         })) as AxiosResponse<Type>;
     }
 
+    @error_handler
     public async request<Type>(options: HttpOptions) {
         return (await this.axios({
             ...options,
+            validateStatus: this.validateStatus,
         })) as AxiosResponse<Type>;
     }
 
+    @error_handler
     public async post<Type>(options: Omit<HttpOptions, "method">) {
         return (await this.axios({
             ...options,
             method: HttpMethods.POST,
+            validateStatus: this.validateStatus,
         })) as AxiosResponse<Type>;
     }
 }
 
-type GetOptions = {
-    headers?: GenericObj;
-    data?: any;
-    responseType?: HttpOptions["responseType"];
-};
+function error_handler(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const originalFunc = descriptor.value;
+
+    descriptor.value = async function (...args: any[]) {
+        try {
+            return await originalFunc.apply(this, args);
+        } catch (error: any) {
+            let err = error;
+            if (error.request) {
+                err = new Error(`AxiosError: ${error.message}`);
+            }
+            Error.captureStackTrace(err, descriptor.value);
+            throw err;
+        }
+    };
+}

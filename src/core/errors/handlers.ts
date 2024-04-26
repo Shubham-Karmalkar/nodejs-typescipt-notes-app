@@ -10,7 +10,6 @@ class ErrorHandler {
         if (type === "appError" && this.isTrustedError(error)) {
             return res?.status(error.statusCode).json(this.formatErrorResponse(error));
         }
-        console.log(`instance of error: ${error instanceof Error}`);
         console.error(error);
 
         if (type === "unKnown") {
