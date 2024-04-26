@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { Exception } from "./errors";
+import { Exception, stackFilter } from "./errors";
 import { HttpStatus } from "@root/constants";
 import { NextFunction, Request, Response } from "express";
 import { Func } from "../types";
@@ -17,7 +17,8 @@ export function Controller(target: any, propertyKey: string, descriptor: Propert
             const finalRes: ApiResponse = resObj instanceof ApiResponse ? resObj : new ApiResponse(resObj);
 
             return res.status(finalRes.statusCode).json(finalRes);
-        } catch (error) {
+        } catch (error: any) {
+            stackFilter(error, "Controller.descriptor.value");
             nextFunc(error);
         }
     };
