@@ -1,5 +1,4 @@
 node_modules/
 .env
-firebaseconfig.json
 build/
-configs/
+src/configs/*.json
