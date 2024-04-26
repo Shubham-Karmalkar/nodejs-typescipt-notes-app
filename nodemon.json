@@ -1,9 +1,9 @@
 {
-    "watch": ["."],
+    "watch": ["src"],
     "watchIgnore": ["build"],
     "ext": "ts,json",
     "ignore": ["build"],
-    "exec": "tsc && node build/src/main.js"
+    "exec": "npx ts-node -r tsconfig-paths/register src/main"
   }
   
   
