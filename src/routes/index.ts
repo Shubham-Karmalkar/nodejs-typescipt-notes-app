@@ -2,7 +2,7 @@ import { HttpStatus } from "@constants";
 import { Exception, errorHandler } from "@core";
 import type { NextFunction, Request, Response, Router } from "express";
 import { userRoute } from "./user.routes";
-require("express-group-routes");
+import "express-group-routes";
 
 const routes = (app: any): void => {
     // app.get("/", (req: Request, res: Response) => {
@@ -14,7 +14,7 @@ const routes = (app: any): void => {
     });
 
     //should always be 1st postRouteMiddleWare
-    app.use((req: Request, res: Response) => {
+    app.use((req: Request, res: Response, next: NextFunction) => {
         throw new Exception("Route not Found", HttpStatus.NOT_FOUND);
     });
 
