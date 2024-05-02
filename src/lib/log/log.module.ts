@@ -1,9 +1,10 @@
 import winston from "winston";
+import { contextFormatter } from "./formatters";
 const { combine, timestamp, json, errors } = winston.format;
 
 export const logger = winston.createLogger({
     level: process.env.NODE_ENV !== "prod" ? "debug" : "info",
-    format: combine(timestamp(), errors({ stack: true }), json()),
+    format: combine(contextFormatter(), timestamp(), errors({ stack: true }), json()),
     defaultMeta: { service: "notes-service" },
     transports: [new winston.transports.Console()],
 });

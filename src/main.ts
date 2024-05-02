@@ -1,5 +1,5 @@
 import express, { Response, Request, NextFunction } from "express";
-import { logRequestResponse } from "@lib/log";
+import { logging } from "@lib/log";
 import { errorHandler } from "@core";
 import dotenv from "dotenv";
 import routes from "./routes";
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
-app.use(logRequestResponse);
+app.use(logging);
 
 app.get("/", (req: Request, res: Response) => {
     res.send({ message: "Welcome to notes-app", service: "notes-app" });

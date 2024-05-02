@@ -2,8 +2,15 @@ import { Request, Response, NextFunction } from "express";
 import { GenericObj } from "@root/types";
 import { maskBody } from "./payloadMasker";
 import { logger } from "./log.module";
+import httpContext, { middleware } from "express-http-context";
 
-export function logRequestResponse(req: Request, res: Response, next: NextFunction) {
+export function logging(req: Request, res: Response, next: NextFunction) {
+    contextAddition(req, res);
+    logRequestResponse(req, res);
+    next();
+}
+
+function logRequestResponse(req: Request, res: Response) {
     req.start = new Date().getTime();
 
     const oldResSend = res.send;
@@ -27,8 +34,7 @@ export function logRequestResponse(req: Request, res: Response, next: NextFuncti
         request["requestHeaders"] = req.headers;
 
         response["status"] = res.statusCode;
-        console.log(`type of : ${JSON.stringify(typeof args)}`);
-        // response["responseBody"] = JSON.stringify(maskBody(JSON.parse(args[0])));
+        response["responseBody"] = JSON.stringify(maskBody(JSON.parse(args[0])));
         response["responseHeaders"] = res.getHeaders();
 
         logger.log({
@@ -41,5 +47,22 @@ export function logRequestResponse(req: Request, res: Response, next: NextFuncti
 
         oldResSend.apply(res, args as any);
     };
-    next();
+}
+
+function contextAddition(req: Request, res: Response) {
+    httpContext.middleware(req, res, () => {
+        httpContext.set("method", req.method);
+        httpContext.set("path", req.path);
+        httpContext.set("x-my-header", req.headers["x-my-header"]);
+        httpContext.set("x-another-header", req.headers["x-another-header"]);
+        httpContext.set("x-correlation-id", req.headers["x-correlation-id"]);
+        httpContext.set("x-variant-id", req.headers["x-variant-id"]);
+        httpContext.set("x-request-id", req.headers["x-request-id"]);
+        httpContext.set("x-b3-traceid", req.headers["x-b3-traceid"]);
+        httpContext.set("x-b3-spanid", req.headers["x-b3-spanid"]);
+        httpContext.set("x-b3-parentspanid", req.headers["x-b3-parentspanid"]);
+        httpContext.set("x-b3-sampled", req.headers["x-b3-sampled"]);
+        httpContext.set("x-b3-flags", req.headers["x-b3-flags"]);
+        httpContext.set("x-ot-span-context", req.headers["x-ot-span-context"]);
+    });
 }
