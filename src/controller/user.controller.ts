@@ -1,21 +1,22 @@
-import { bind, Controller, Exception, Validator } from "@core";
+import { bind, Controller, Validator } from "@core";
 import { UserService } from "@service/user.service";
 import { userGetApiValidation } from "@validations/user.validation";
-import { GetGoogleAuthUrl, UserGetApi } from "@root/types/user.types";
+import { GetGoogleAuthUrl, User, UserGetApi } from "@root/types/user.types";
 import { getGoogleAuthURL } from "@root/lib/auth/google-auth";
+import { IUserRepo } from "@root/interfaces/user";
 
 @bind
 export class UserController {
-    private userService: UserService;
+    private service: UserService;
 
-    constructor() {
-        this.userService = new UserService();
+    constructor(private repo: IUserRepo) {
+        this.service = new UserService(repo);
     }
 
     @Controller
     @Validator(userGetApiValidation)
-    async getUser(req: UserGetApi.Request): Promise<void> {
-        throw new Error("throwin manual error");
+    async getUser(req: UserGetApi.Request): Promise<User> {
+        return await this.service.getUser(req.params.emailId);
     }
 
     @Controller
