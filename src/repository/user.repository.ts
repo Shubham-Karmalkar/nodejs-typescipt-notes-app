@@ -1,9 +1,9 @@
-import { IUserRepo } from "@interfaces/user";
-import { Database } from "@root/interfaces/db.interface";
+import { IUserRepository } from "@interfaces/user";
+import { Database } from "@interfaces/db.interface";
 import { User } from "@root/types/user.types";
 import config from "configs";
 
-export class UserRepo implements IUserRepo {
+export class UserRepository implements IUserRepository {
     private userTable: string = config.get("table_mapping")["user_data"];
 
     constructor(private db: Database) {}

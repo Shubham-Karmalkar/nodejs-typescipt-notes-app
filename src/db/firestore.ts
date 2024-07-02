@@ -3,9 +3,10 @@ import { Database } from "@interfaces/db.interface";
 
 export class FireStoreDb implements Database {
     constructor() {}
-    async get(tableName: string, id: any) {
-        const docRef = firestore.collection(tableName).doc(id);
-        return (await docRef.get()).data();
+
+    async get<Type>(tableName: string, id: any) {
+        const docRef = await firestore.collection(tableName).doc(id).get();
+        return docRef.data() as Type;
     }
 
     async create(tableName: string, data: any) {

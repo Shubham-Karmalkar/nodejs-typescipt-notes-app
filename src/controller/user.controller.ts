@@ -3,13 +3,13 @@ import { UserService } from "@service/user.service";
 import { userGetApiValidation } from "@validations/user.validation";
 import { GetGoogleAuthUrl, User, UserGetApi } from "@root/types/user.types";
 import { getGoogleAuthURL } from "@root/lib/auth/google-auth";
-import { IUserRepo } from "@root/interfaces/user";
+import { IUserRepository } from "@root/interfaces/user";
 
 @bind
 export class UserController {
     private service: UserService;
 
-    constructor(private repo: IUserRepo) {
+    constructor(repo: IUserRepository) {
         this.service = new UserService(repo);
     }
 

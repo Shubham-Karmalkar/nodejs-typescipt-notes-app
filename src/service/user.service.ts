@@ -1,7 +1,7 @@
-import { IUserRepo } from "@root/interfaces/user";
+import { IUserRepository } from "@interfaces/user";
 
 export class UserService {
-    constructor(private repo: IUserRepo) {}
+    constructor(private repo: IUserRepository) {}
 
     async getUser(id: string) {
         return await this.repo.getUser(id);

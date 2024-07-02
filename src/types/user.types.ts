@@ -1,6 +1,6 @@
+import { AUTH_PROVIDERS } from "@constants/auth";
 import { ReqData } from ".";
 
-export type Providers = "Google" | "EmailPassword";
 export interface IUser {
     _id: string;
     type: string;
@@ -9,7 +9,7 @@ export interface IUser {
     imageUrl: string;
     createAt: number;
     updatedAt: number;
-    providerId: Providers;
+    providerId: AUTH_PROVIDERS;
     phoneNumber: number;
 }
 

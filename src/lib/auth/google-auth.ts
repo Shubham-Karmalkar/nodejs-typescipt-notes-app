@@ -1,4 +1,4 @@
-import { AuthMethod } from "./auth-method.interface";
+import { AuthMethod } from "@interfaces/auth";
 import config from "@config";
 
 const googleConf = config.get("google");

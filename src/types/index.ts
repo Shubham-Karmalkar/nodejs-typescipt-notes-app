@@ -10,18 +10,22 @@ export type ValuesOf<Type> = Type[keyof Type];
 
 //Objects
 export type GenericObj<Type = any> = {
-  [prop: string]: Type;
+    [prop: string]: Type;
 };
 
 export type HasPropOf<Type extends GenericObj> = {
-  [Property in keyof Type]: any;
+    [Property in keyof Type]: any;
 };
 
 export type ReqData<Body = GenericObj, Params = GenericObj, Query = GenericObj, Headers = GenericObj> = {
-  body: Body;
-  params: Params;
-  query: Query;
-  headers: Headers;
-  //eslint-disable-next-line no-undef
-  // files?: Express.Multer.File[];
+    body: Body;
+    params: Params;
+    query: Query;
+    headers: Headers;
+    //eslint-disable-next-line no-undef
+    // files?: Express.Multer.File[];
+};
+
+export type NonMethodType<Type> = {
+    [Key in keyof Type as Type[Key] extends (...args: any[]) => any ? never : Key]: Type[Key];
 };
